@@ -1,0 +1,486 @@
+
+<h2 class="sr-only">4-Week Pakistan AI Engineer Bootcamp — interactive roadmap covering weekly curricula, career strategy, and final job-readiness checklist</h2>
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  #bc{font-family:var(--font-sans);padding:0 0 2rem}
+  .header{padding:1.25rem 0 1rem;border-bottom:0.5px solid var(--border)}
+  .title{font-size:20px;font-weight:500;color:var(--text-primary);margin-bottom:.5rem}
+  .subtitle{font-size:13px;color:var(--text-secondary)}
+  .stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:.75rem}
+  .stat{background:var(--surface-1);border:0.5px solid var(--border);border-radius:var(--radius);padding:4px 10px;font-size:12px;color:var(--text-secondary);display:flex;align-items:center;gap:5px}
+  .stat i{font-size:14px}
+  .tab-nav{display:flex;gap:0;border-bottom:0.5px solid var(--border);margin-top:1.25rem;overflow-x:auto}
+  .tab-btn{background:none;border:none;border-bottom:2px solid transparent;padding:.6rem 1rem;font-size:13px;font-weight:400;color:var(--text-secondary);cursor:pointer;white-space:nowrap;font-family:var(--font-sans);transition:color .15s}
+  .tab-btn:hover{color:var(--text-primary)}
+  .tab-btn.active{color:var(--text-accent);border-bottom-color:var(--fill-accent);font-weight:500}
+  .panel{display:none}
+  .panel.active{display:block;padding-top:1rem}
+  .week-banner{border-radius:12px;border:0.5px solid var(--border-accent);background:var(--bg-accent);padding:.875rem 1.125rem;margin-bottom:1rem}
+  .week-banner .wt{font-size:11px;font-weight:500;color:var(--text-accent);letter-spacing:.03em;margin-bottom:.25rem}
+  .week-banner .wh{font-size:16px;font-weight:500;color:var(--text-primary)}
+  .week-banner .ws{font-size:13px;color:var(--text-secondary);margin-top:.2rem}
+  .day-card{border-radius:12px;border:0.5px solid var(--border);background:var(--surface-2);margin-bottom:.625rem;overflow:hidden}
+  .day-card.project-day{border-color:var(--border-warning)}
+  .day-header{display:flex;align-items:center;gap:.625rem;padding:.75rem 1rem;cursor:pointer;user-select:none}
+  .day-header:hover{background:var(--surface-1)}
+  .day-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0}
+  .day-num.mon{background:var(--bg-accent);color:var(--text-accent)}
+  .day-num.tue{background:var(--bg-success);color:var(--text-success)}
+  .day-num.wed{background:var(--bg-pro);color:var(--text-pro)}
+  .day-num.thu{background:var(--bg-danger);color:var(--text-danger)}
+  .day-num.fri{background:var(--bg-warning);color:var(--text-warning)}
+  .day-name{font-size:14px;font-weight:500;color:var(--text-primary);flex:1}
+  .day-name.project{color:var(--text-warning)}
+  .time-badge{font-size:11px;background:var(--surface-1);border:0.5px solid var(--border);border-radius:var(--radius);padding:2px 7px;color:var(--text-muted);white-space:nowrap}
+  .project-badge{font-size:11px;background:var(--bg-warning);border-radius:var(--radius);padding:2px 7px;color:var(--text-warning);font-weight:500;white-space:nowrap}
+  .chevron{font-size:14px;color:var(--text-muted);transition:transform .2s}
+  .chevron.open{transform:rotate(180deg)}
+  .day-body{display:none;border-top:0.5px solid var(--border);padding:.875rem 1rem}
+  .day-body.open{display:block}
+  .section{margin-bottom:.875rem}
+  .section:last-child{margin-bottom:0}
+  .sec-label{font-size:11px;font-weight:500;color:var(--text-muted);margin-bottom:.4rem;display:flex;align-items:center;gap:5px;text-transform:uppercase;letter-spacing:.05em}
+  .sec-label i{font-size:14px}
+  .item-list{list-style:none}
+  .item-list li{font-size:13px;color:var(--text-secondary);padding:3px 0 3px 1rem;position:relative;line-height:1.5}
+  .item-list li::before{content:'';position:absolute;left:0;top:.6em;width:5px;height:5px;border-radius:50%;background:var(--border-strong)}
+  .item-list.tasks li::before{background:var(--fill-success);opacity:.7}
+  .item-list.topics li::before{background:var(--fill-accent);opacity:.6}
+  .res-item{display:flex;align-items:center;gap:7px;padding:4px 0;font-size:13px}
+  .res-badge{font-size:10px;border-radius:var(--radius);padding:1px 6px;white-space:nowrap;font-weight:500}
+  .rb-yt{background:var(--bg-danger);color:var(--text-danger)}
+  .rb-course{background:var(--bg-success);color:var(--text-success)}
+  .rb-docs{background:var(--bg-accent);color:var(--text-accent)}
+  .rb-dataset{background:var(--bg-pro);color:var(--text-pro)}
+  .rb-resource{background:var(--bg-warning);color:var(--text-warning)}
+  .rb-article{background:var(--surface-1);color:var(--text-secondary)}
+  .res-link{color:var(--text-accent);text-decoration:none;font-size:13px}
+  .res-link:hover{text-decoration:underline}
+  .proj-desc{background:var(--bg-warning);border-radius:var(--radius);padding:.5rem .75rem;font-size:13px;color:var(--text-warning);margin-bottom:.75rem;font-weight:500}
+  .strategy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.75rem;margin-top:.75rem}
+  .strat-card{background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;padding:1rem 1.125rem}
+  .strat-title{font-size:14px;font-weight:500;color:var(--text-primary);margin-bottom:.125rem;display:flex;align-items:center;gap:.5rem}
+  .strat-sub{font-size:12px;color:var(--text-secondary);margin-bottom:.75rem}
+  .strat-item{font-size:13px;color:var(--text-secondary);padding:3px 0 3px 1rem;position:relative;line-height:1.5}
+  .strat-item::before{content:'→';position:absolute;left:0;color:var(--text-accent);font-size:11px;top:.2em}
+  .checklist-section{margin-bottom:1.5rem}
+  .cl-header{font-size:14px;font-weight:500;color:var(--text-primary);margin-bottom:.625rem;display:flex;align-items:center;gap:.5rem;padding-bottom:.4rem;border-bottom:0.5px solid var(--border)}
+  .cl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px}
+  .cl-item{font-size:13px;color:var(--text-secondary);padding:4px 0 4px 1.25rem;position:relative;line-height:1.4}
+  .cl-item::before{content:'✓';position:absolute;left:0;color:var(--text-success);font-size:12px;font-weight:500}
+  .interview-box{background:var(--surface-1);border:0.5px solid var(--border);border-radius:12px;padding:1rem 1.125rem;margin-top:1rem}
+  .iq-item{font-size:13px;color:var(--text-secondary);padding:3px 0;line-height:1.5}
+  .iq-item strong{color:var(--text-primary);font-weight:500}
+  .company-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:.5rem}
+  .co-badge{font-size:12px;background:var(--surface-1);border:0.5px solid var(--border);border-radius:var(--radius);padding:3px 8px;color:var(--text-secondary)}
+</style>
+
+<div id="bc">
+  <div class="header">
+    <div class="title"><i class="ti ti-rocket" aria-hidden="true" style="color:var(--text-accent);margin-right:6px"></i>Pakistan AI Engineer Bootcamp — 4 weeks</div>
+    <div class="subtitle">From graduation to junior AI Engineer — brutal, focused, job-ready</div>
+    <div class="stats">
+      <div class="stat"><i class="ti ti-calendar" aria-hidden="true"></i> 20 working days</div>
+      <div class="stat"><i class="ti ti-clock" aria-hidden="true"></i> ~160 hours total</div>
+      <div class="stat"><i class="ti ti-folder" aria-hidden="true"></i> 5 portfolio projects</div>
+      <div class="stat"><i class="ti ti-building" aria-hidden="true"></i> Pakistan + remote roles</div>
+    </div>
+  </div>
+
+  <div class="tab-nav" id="tabs"></div>
+  <div id="panels"></div>
+</div>
+
+<script>
+const W = [
+  {
+    id:'w1', label:'Week 1', title:'Python Powerhouse + ML Foundations',
+    theme:'Build the unshakeable foundation everything else rests on',
+    days:[
+      {d:'Mon',n:'Python mastery sprint',h:8,proj:false,
+       desc:null,
+       topics:['Advanced OOP: classes, inheritance, dunder methods, abstract classes','Pythonic patterns: comprehensions, generators, decorators, context managers','Error handling, file I/O, module system, virtual environments','Type hints, dataclasses, f-strings, unpacking','pip + conda package management, .env files'],
+       resources:[
+         {t:'YouTube',n:'Corey Schafer — Python OOP Series',u:'https://www.youtube.com/playlist?list=PL-osiE80TeTsqhIuOqKhwlXsIBIdSeYtc'},
+         {t:'YouTube',n:'Sentdex — Python 3 Basics',u:'https://www.youtube.com/playlist?list=PLQVvvaa0QuDe8XSftW-RAxdo6OmaeL85M'},
+         {t:'Docs',n:'Python Official Docs — Data Structures & Classes',u:'https://docs.python.org/3/tutorial/classes.html'},
+         {t:'Article',n:'Real Python — Decorators in Depth',u:'https://realpython.com/primer-on-python-decorators/'}
+       ],
+       tasks:['Set up: VS Code + Anaconda + Jupyter Lab + Git + GitHub account','Build a CSV processor CLI tool using OOP (3 classes: DataLoader, Cleaner, Reporter)','Write 3 custom decorators: timer, retry-on-exception, logging decorator','Solve 15 Python-focused LeetCode Easy problems (lists, dicts, strings, sets)','Commit all work to GitHub with descriptive messages — start the daily habit']
+      },
+      {d:'Tue',n:'NumPy + Pandas + EDA workflow',h:8,proj:false,
+       desc:null,
+       topics:['NumPy: ndarray, broadcasting, vectorized ops, fancy indexing, linear algebra','Pandas: Series, DataFrame, read_csv, info, describe, head, dtypes','Pandas: groupby, merge, pivot_table, apply/map, fillna, dropna, duplicates','Matplotlib + Seaborn: line, bar, scatter, heatmap, boxplot, histogram, pairplot','EDA workflow: understand → clean → analyze → visualize → insights'],
+       resources:[
+         {t:'Course',n:'Kaggle Pandas Micro-Course (free certificate)',u:'https://www.kaggle.com/learn/pandas'},
+         {t:'YouTube',n:'Krish Naik — NumPy Full Tutorial',u:'https://www.youtube.com/watch?v=Rbh1rieb3zc'},
+         {t:'YouTube',n:'Krish Naik — Pandas Full Tutorial',u:'https://www.youtube.com/watch?v=RhEjmHeDNoA'},
+         {t:'Docs',n:'Seaborn Official Tutorial Gallery',u:'https://seaborn.pydata.org/tutorial.html'}
+       ],
+       tasks:['Full EDA on Titanic dataset: handle nulls, encode categoricals, fix dtypes','Generate 10 meaningful visualizations with proper titles, labels, legends','Answer 5 business questions using Pandas queries (e.g. survival rate by class/sex)','Complete 20 Pandas exercises on w3resource.com','Push Jupyter notebook to GitHub with markdown explanations (not just code)']
+      },
+      {d:'Wed',n:'Essential math for ML (no fluff)',h:7,proj:false,
+       desc:null,
+       topics:['Linear algebra: vectors, dot product, matrix multiplication, transpose, inverse','Eigenvalues/eigenvectors conceptually — why PCA works','Statistics: mean, std, variance, normal distribution, CLT, confidence intervals','Correlation, covariance, Pearson/Spearman, hypothesis testing, p-values (basics)','Calculus: derivatives, partial derivatives, chain rule — just enough for backpropagation'],
+       resources:[
+         {t:'YouTube',n:'3Blue1Brown — Essence of Linear Algebra (Ep 1-7)',u:'https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab'},
+         {t:'YouTube',n:'StatQuest — Statistics Fundamentals Playlist',u:'https://www.youtube.com/playlist?list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9'},
+         {t:'Course',n:'Khan Academy — Statistics & Probability (free)',u:'https://www.khanacademy.org/math/statistics-probability'},
+         {t:'YouTube',n:'3Blue1Brown — Essence of Calculus',u:'https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr'}
+       ],
+       tasks:['Implement matrix operations from scratch with NumPy (multiply, transpose, inverse)','Implement gradient descent for linear regression from scratch (numpy only)','Plot 5 probability distributions using scipy.stats (normal, binomial, Poisson...)','Compute correlation matrix for Titanic and interpret 3 key relationships','Complete 10 practice problems from StatQuest worksheets']
+      },
+      {d:'Thu',n:'Scikit-learn + core ML algorithms',h:9,proj:false,
+       desc:null,
+       topics:['Supervised: Linear Regression, Logistic Regression, Ridge, Lasso','Supervised: Decision Trees, Random Forest, Gradient Boosting, XGBoost','Supervised: SVM, KNN — use cases, trade-offs','Unsupervised: K-Means clustering, PCA for dimensionality reduction','Evaluation: train/test split, k-fold CV, accuracy, precision, recall, F1, ROC-AUC, confusion matrix, RMSE'],
+       resources:[
+         {t:'YouTube',n:'Krish Naik — Complete ML Playlist',u:'https://www.youtube.com/playlist?list=PLZoTAELRMXVPBTrWtJkn3wWQxZkmTXGwe'},
+         {t:'Docs',n:'Scikit-learn User Guide + API Reference',u:'https://scikit-learn.org/stable/user_guide.html'},
+         {t:'YouTube',n:'StatQuest — ML Videos (Random Forest, XGBoost etc.)',u:'https://www.youtube.com/playlist?list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF'},
+         {t:'Docs',n:'XGBoost Official Documentation',u:'https://xgboost.readthedocs.io/'}
+       ],
+       tasks:['Train 5 classifiers on Titanic: LR, RF, XGBoost, SVM, KNN','Compare with 5-fold cross-validation — build comparison DataFrame','GridSearchCV to tune Random Forest hyperparameters (n_estimators, max_depth, min_samples_split)','Plot ROC curves for all 5 models on one graph','Apply PCA to reduce to 5 components and compare accuracy impact']
+      },
+      {d:'Fri',n:'PROJECT 1 — Customer churn predictor',h:9,proj:true,
+       desc:'End-to-end ML pipeline: EDA → feature engineering → model → Streamlit dashboard',
+       topics:['Feature engineering: encoding, interaction features, datetime features','Feature selection: correlation analysis, feature importance, RFE','sklearn Pipeline: combining preprocessors + model into one object','Joblib model serialization for deployment','Streamlit: input form, probability display, SHAP explainability chart'],
+       resources:[
+         {t:'Dataset',n:'Telco Customer Churn Dataset (Kaggle)',u:'https://www.kaggle.com/datasets/blastchar/telco-customer-churn'},
+         {t:'Docs',n:'Streamlit Official Docs',u:'https://docs.streamlit.io/'},
+         {t:'Docs',n:'SHAP Library — Model Explainability',u:'https://shap.readthedocs.io/'},
+         {t:'Resource',n:'Awesome GitHub Profile README Examples',u:'https://github.com/abhisheknaiidu/awesome-github-profile-readme'}
+       ],
+       tasks:['Full pipeline: Telco dataset → clean → engineer features → train XGBoost (target: >82% F1)','Build Streamlit app: upload CSV → show predictions + probability scores + SHAP waterfall chart','Serialize model with joblib, load in Streamlit app (no re-training)','Create GitHub repo with professional README: badges, screenshots, setup instructions, tech stack','Set up GitHub profile: photo, bio, pinned repos, profile README with stats widget']
+      }
+    ]
+  },
+  {
+    id:'w2', label:'Week 2', title:'Deep Learning + NLP + Transformers',
+    theme:'Level up to neural networks — the foundation of every AI product being built today',
+    days:[
+      {d:'Mon',n:'Neural networks from scratch + PyTorch',h:9,proj:false,
+       desc:null,
+       topics:['Perceptrons → multi-layer networks, universal approximation theorem (intuition)','Activation functions: ReLU, sigmoid, tanh, softmax — when to use each','Forward pass, loss functions (BCE, CrossEntropy, MSE), backward pass (chain rule)','Optimizers: SGD, Adam, RMSProp — intuition and hyperparameters','Batch normalization, dropout — why they prevent overfitting','PyTorch: tensors, autograd, nn.Module, DataLoader, training loop'],
+       resources:[
+         {t:'YouTube',n:'3Blue1Brown — Neural Networks (4 episodes)',u:'https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi'},
+         {t:'YouTube',n:'Andrej Karpathy — Micrograd (build autograd from scratch)',u:'https://www.youtube.com/watch?v=VMj-3S1tku0'},
+         {t:'Docs',n:'PyTorch — 60 Minute Blitz',u:'https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html'},
+         {t:'YouTube',n:'Sentdex — PyTorch Series',u:'https://www.youtube.com/playlist?list=PLQVvvaa0QuDdeMyHEYc0gxFpYwHY2Qfdh'}
+       ],
+       tasks:['Implement a 2-layer neural net from scratch with NumPy: forward pass + backprop + weight updates','Replicate in PyTorch using nn.Module — compare results, ensure they match','Train both on MNIST: target >97% accuracy within 10 epochs','Plot training/validation loss curves — spot overfitting if it occurs, fix with dropout','Write a markdown explanation of backpropagation in your own words (for interviews)']
+      },
+      {d:'Tue',n:'CNNs + transfer learning + computer vision',h:9,proj:false,
+       desc:null,
+       topics:['Convolution operation: filters, feature maps, stride, padding, receptive field','Pooling layers, flattening, fully connected head','Popular architectures: VGG, ResNet (skip connections), EfficientNet, MobileNet','Transfer learning: freeze base → unfreeze gradually, fine-tuning best practices','OpenCV basics: read/write images, resize, color conversion, basic augmentations','Albumentations library for data augmentation pipelines'],
+       resources:[
+         {t:'Article',n:'CS231n Lecture Notes — CNNs (Stanford, free)',u:'https://cs231n.github.io/convolutional-networks/'},
+         {t:'Docs',n:'PyTorch Transfer Learning Tutorial',u:'https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html'},
+         {t:'YouTube',n:'Sentdex — OpenCV Python Tutorials',u:'https://www.youtube.com/playlist?list=PLQVvvaa0QuDdttJXlLtAJxJetJcqmqlQq'},
+         {t:'Docs',n:'Albumentations Documentation',u:'https://albumentations.ai/docs/'}
+       ],
+       tasks:['Fine-tune ResNet50 on a 5-class custom dataset (find on Kaggle or create from Google Images)','Implement 5 augmentation techniques with Albumentations (flip, rotate, brightness, zoom, cutout)','Use Grad-CAM to visualize what the model looks at — plot 5 example heatmaps','Deploy trained model with Gradio (free hosting on Hugging Face Spaces)','Target: >85% test accuracy; document failed experiments in README']
+      },
+      {d:'Wed',n:'NLP fundamentals + classical approaches',h:8,proj:false,
+       desc:null,
+       topics:['Text preprocessing: tokenization, lowercasing, punctuation removal, stopwords','Stemming vs lemmatization (NLTK, spaCy)','Bag of Words (CountVectorizer), TF-IDF — math intuition and sklearn implementation','Word embeddings: Word2Vec (CBOW, Skip-gram), GloVe, FastText — load pretrained','Sequence models: RNN, LSTM, GRU — architecture and vanishing gradient problem (conceptual)','spaCy: NER, POS tagging, dependency parsing'],
+       resources:[
+         {t:'YouTube',n:'Krish Naik — Complete NLP Playlist',u:'https://www.youtube.com/playlist?list=PLZoTAELRMXVMdJ5sqbCK2LiM0HhQVWNzm'},
+         {t:'Course',n:'spaCy Official Course (free, interactive)',u:'https://course.spacy.io/en/'},
+         {t:'Docs',n:'Hugging Face NLP Course Chapter 1-3',u:'https://huggingface.co/learn/nlp-course/chapter1/1'},
+         {t:'Resource',n:'GloVe Pretrained Vectors (Stanford)',u:'https://nlp.stanford.edu/projects/glove/'}
+       ],
+       tasks:['Build text classifier on AG News dataset: TF-IDF + 3 classifiers (LR, NB, SVM)','Load GloVe embeddings, average word vectors per sentence, train classifier — compare vs TF-IDF','Use spaCy to extract entities from 20 Pakistani news articles','Plot t-SNE visualization of 200 word embeddings to see clusters','Achieve >88% accuracy on AG News test set — document in GitHub']
+      },
+      {d:'Thu',n:'Transformers + Hugging Face ecosystem',h:9,proj:false,
+       desc:null,
+       topics:['Self-attention mechanism: queries, keys, values — the math made simple','Multi-head attention, positional encoding, encoder vs decoder architectures','BERT (masked LM, classification head), GPT (causal LM), T5 (seq2seq)','Hugging Face: pipeline(), AutoTokenizer, AutoModel, Trainer API','Fine-tuning: classification, NER, Q&A — when to use each','Multilingual models: mBERT, XLM-R for Urdu/Pakistani text tasks'],
+       resources:[
+         {t:'Article',n:'The Illustrated Transformer — Jay Alammar',u:'https://jalammar.github.io/illustrated-transformer/'},
+         {t:'Course',n:'Hugging Face NLP Course (100% free)',u:'https://huggingface.co/learn/nlp-course/chapter1/1'},
+         {t:'YouTube',n:"Andrej Karpathy — Let's build GPT from scratch",u:'https://www.youtube.com/watch?v=kCc8FmEb1nY'},
+         {t:'Docs',n:'Hugging Face Transformers Documentation',u:'https://huggingface.co/docs/transformers/index'}
+       ],
+       tasks:['Use HF pipeline() for 5 tasks: sentiment, NER, QA, summarization, translation','Fine-tune BERT-base-uncased on IMDB sentiment: target >92% accuracy','Test XLM-RoBERTa on a mix of Urdu/English tweets — evaluate zero-shot performance','Load DistilBERT for inference — compare speed vs BERT: tokens/sec benchmark','Write and commit a comparison table: BERT vs GPT vs T5 — architecture + use cases']
+      },
+      {d:'Fri',n:'PROJECT 2 — Multilingual sentiment analyzer',h:9,proj:true,
+       desc:'Fine-tune mBERT/XLM-R for Urdu+English text — deployed on Hugging Face Spaces',
+       topics:['Multilingual BERT (mBERT) or XLM-RoBERTa fine-tuning','Hugging Face Trainer API with custom dataset','Mixed-language (code-switched) text handling','Streamlit UI with language detection + confidence scores','Hugging Face Spaces deployment (completely free)'],
+       resources:[
+         {t:'Dataset',n:'Urdu Sentiment Dataset (Kaggle)',u:'https://www.kaggle.com/datasets/akkefa/urdu-sentiment-corpus'},
+         {t:'Dataset',n:'Roman Urdu Sentiment Dataset',u:'https://www.kaggle.com/datasets/khalidrashid/roman-urdu-sentiment-analysis-dataset'},
+         {t:'Docs',n:'Hugging Face Spaces — Deploy for Free',u:'https://huggingface.co/docs/hub/spaces'},
+         {t:'Course',n:'DeepLearning.AI — Finetuning LLMs (free)',u:'https://www.deeplearning.ai/short-courses/finetuning-large-language-models/'}
+       ],
+       tasks:['Fine-tune XLM-RoBERTa on Urdu/Roman Urdu sentiment dataset (positive/negative/neutral)','Streamlit app: user types text in Urdu or English → shows sentiment + confidence bar','Deploy live on Hugging Face Spaces + add demo link to GitHub README','Write a LinkedIn post: "Built multilingual AI for Urdu — here is how" — your first public post','Update resume with this project (tech stack, metric achieved, deployment link)']
+      }
+    ]
+  },
+  {
+    id:'w3', label:'Week 3', title:'LLMs + RAG + AI Engineering',
+    theme:'The highest-ROI skills Pakistani companies are actively hiring for in 2026',
+    days:[
+      {d:'Mon',n:'LLM APIs + prompt engineering mastery',h:8,proj:false,
+       desc:null,
+       topics:['How LLMs work: tokens, context window, temperature, top-p, top-k, stop sequences','OpenAI API (GPT-4o-mini — cheapest), Google Gemini API (generous free tier), Anthropic Claude API','Prompt engineering techniques: zero-shot, few-shot, chain-of-thought (CoT), ReAct, meta-prompting','Structured outputs: JSON mode, function calling / tool use, output parsing','System prompts, roles (user/assistant/system), token budgeting, caching'],
+       resources:[
+         {t:'Docs',n:'OpenAI API Documentation',u:'https://platform.openai.com/docs/overview'},
+         {t:'Docs',n:'Google AI Studio + Gemini API (free)',u:'https://aistudio.google.com/'},
+         {t:'Course',n:'Prompt Engineering Guide (promptingguide.ai)',u:'https://www.promptingguide.ai/'},
+         {t:'Course',n:'DeepLearning.AI — ChatGPT Prompt Engineering (free)',u:'https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/'}
+       ],
+       tasks:['Build a reusable prompt template library (10 templates: extractor, classifier, summarizer, etc.)','Implement chain-of-thought for a multi-step math word problem solver — compare vs zero-shot','Build a JSON extractor: feed unstructured text → get structured output with Pydantic validation','Compare GPT-4o-mini vs Gemini 1.5 Flash on 5 tasks — cost, quality, speed benchmark table','Implement few-shot prompting for Pakistan-specific entity extraction (cities, companies, currencies)']
+      },
+      {d:'Tue',n:'LangChain + agents + memory',h:9,proj:false,
+       desc:null,
+       topics:['LangChain architecture: chains, runnables, LCEL (LangChain Expression Language)','PromptTemplate, ChatPromptTemplate, RunnableSequence, RunnableParallel','Agents: ReAct pattern, tool-calling agents — how they decide what to do','Built-in tools: DuckDuckGo search, Wikipedia, calculator, Python REPL','Memory: ConversationBufferMemory, ConversationSummaryMemory, entity memory','Output parsers: StrOutputParser, JsonOutputParser, PydanticOutputParser'],
+       resources:[
+         {t:'Docs',n:'LangChain Python Documentation',u:'https://python.langchain.com/docs/introduction/'},
+         {t:'Course',n:'DeepLearning.AI — LangChain for LLM App Dev (free)',u:'https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/'},
+         {t:'YouTube',n:'Greg Kamradt — LangChain Tutorials',u:'https://www.youtube.com/playlist?list=PLqZXAkvF1bPNQER9mLmDbntNfSpzdDIU5'},
+         {t:'Docs',n:'LangSmith — Free LLM Tracing and Debugging',u:'https://www.langchain.com/langsmith'}
+       ],
+       tasks:['Build a multi-tool ReAct agent: web search + calculator + date tool + custom Pakistan GDP tool','Implement conversation memory: chatbot that remembers context across 15 messages without re-sending all','Create a parallel chain: run 3 LLM calls simultaneously and aggregate results','Use LangSmith to trace a chain — inspect token usage per step','Build a chain that extracts, validates, and structures data from Pakistani news articles']
+      },
+      {d:'Wed',n:'Vector databases + RAG architecture',h:9,proj:false,
+       desc:null,
+       topics:['What embeddings are: semantic representation in high-dimensional space','Embedding models: text-embedding-ada-002, sentence-transformers (free, local)','Vector similarity: cosine similarity, dot product, L2 — when each is appropriate','Vector databases: ChromaDB (local, free), Pinecone (free tier), FAISS (offline)','Full RAG pipeline: chunk → embed → store → retrieve → augment → generate','Advanced RAG: chunking strategies (recursive, semantic), reranking with Cohere, HyDE'],
+       resources:[
+         {t:'Course',n:'DeepLearning.AI — Building & Evaluating Advanced RAG (free)',u:'https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/'},
+         {t:'Docs',n:'ChromaDB Documentation (local vector DB)',u:'https://docs.trychroma.com/'},
+         {t:'Docs',n:'Sentence-Transformers (free embeddings)',u:'https://www.sbert.net/'},
+         {t:'Course',n:'DeepLearning.AI — LangChain + RAG (free)',u:'https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/'}
+       ],
+       tasks:['Build RAG on a large Pakistani legal/government PDF (use NEPRA, SECP, or FBR docs)','Implement two chunking strategies (fixed-size vs recursive) — compare retrieval quality','Compare free embeddings (sentence-transformers all-MiniLM) vs OpenAI ada-002 — cost vs quality','Add a reranker (Cohere rerank free tier or cross-encoder) — measure MRR improvement','Evaluate RAG pipeline with 20 Q&A pairs you write manually — compute accuracy']
+      },
+      {d:'Thu',n:'FastAPI + serving ML models in production',h:8,proj:false,
+       desc:null,
+       topics:['FastAPI fundamentals: path params, query params, request body (Pydantic), response models','Async endpoints, background tasks, dependency injection','Serving ML models: load once at startup (lifespan), predict endpoint, batch endpoint','Authentication: API key via header (X-API-Key), OAuth2 basics','Testing FastAPI: pytest + httpx, TestClient, fixtures','python-dotenv for secrets, environment configs for staging/production'],
+       resources:[
+         {t:'Docs',n:'FastAPI Official Documentation',u:'https://fastapi.tiangolo.com/'},
+         {t:'Article',n:'Real Python — FastAPI Tutorial',u:'https://realpython.com/fastapi-python-web-apis/'},
+         {t:'Docs',n:'Streamlit Documentation',u:'https://docs.streamlit.io/'},
+         {t:'YouTube',n:'Tech With Tim — FastAPI Course',u:'https://www.youtube.com/watch?v=tLKKmouUams'}
+       ],
+       tasks:['Wrap Week 1 churn model in FastAPI: /predict (single), /predict-batch, /health, /model-info','Add API key authentication — test with Postman and then with httpx','Write 5 pytest tests covering happy path, invalid input, missing fields, batch size limits','Build Streamlit frontend that calls the FastAPI backend (not the model directly)','Deploy API to Railway.app free tier — share live URL in GitHub README']
+      },
+      {d:'Fri',n:'PROJECT 3 — RAG document intelligence app',h:9,proj:true,
+       desc:'PDF upload → intelligent Q&A in Urdu or English — fully deployed and live',
+       topics:['LangChain LCEL pipeline: PDF loader → text splitter → embedder → ChromaDB → retriever','Gemini Flash or GPT-4o-mini as generator (choose based on budget)','FastAPI backend: /upload-pdf, /ask endpoints with streaming responses','Streamlit frontend: drag-drop PDF upload, chat interface, source citation display','Deploy on Streamlit Cloud (free) + Hugging Face Spaces as backup'],
+       resources:[
+         {t:'Docs',n:'LangChain PDF Loaders',u:'https://python.langchain.com/docs/how_to/document_loader_pdf/'},
+         {t:'Docs',n:'Streamlit Cloud — Free Deployment',u:'https://streamlit.io/cloud'},
+         {t:'Dataset',n:'Test with SECP or NEPRA regulatory PDFs',u:'https://www.secp.gov.pk/'},
+         {t:'Course',n:'DeepLearning.AI — Functions, Tools & Agents with LangChain (free)',u:'https://www.deeplearning.ai/short-courses/functions-tools-agents-langchain/'}
+       ],
+       tasks:['Build complete RAG app: upload any PDF → ask questions → get cited answers with page refs','Test with 3 different document types: legal, technical manual, research paper','Source citations in UI: "Source: page 12, paragraph 2" next to each answer','Support Urdu queries (test with mBERT or multilingual embedding model)','Deploy live — get a public URL. Record a 60-second demo video for LinkedIn']
+      }
+    ]
+  },
+  {
+    id:'w4', label:'Week 4', title:'Production + Portfolio + Get Hired',
+    theme:'Polish, deploy, and dominate every interview — submit 10+ applications by Friday',
+    days:[
+      {d:'Mon',n:'MLOps + Docker + deployment pipeline',h:8,proj:false,
+       desc:null,
+       topics:['Docker: Dockerfile, layers, images, containers, docker-compose, volumes, networking','Containerizing Python + FastAPI + ML model apps','MLflow: experiment tracking (log params, metrics, artifacts), model registry, runs comparison','Free deployment: Railway, Render, Hugging Face Spaces, Streamlit Cloud — what fits what','GitHub Actions: write a workflow that runs pytest on every push to main','Environment management: requirements.txt vs pyproject.toml, multi-stage Docker builds'],
+       resources:[
+         {t:'YouTube',n:'TechWorld with Nana — Docker Beginner (3h)',u:'https://www.youtube.com/watch?v=3c-iBn73dDE'},
+         {t:'Docs',n:'MLflow Quickstart + Tracking Guide',u:'https://mlflow.org/docs/latest/quickstart.html'},
+         {t:'Docs',n:'GitHub Actions — Python CI/CD',u:'https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-python'},
+         {t:'Docs',n:'Railway.app — Free Deployment Docs',u:'https://docs.railway.app/'}
+       ],
+       tasks:['Write a Dockerfile for the Week 3 RAG app — build and run locally, verify it works','Add MLflow tracking to Week 1 project: log all hyperparameters, metrics, and model artifact','Write a GitHub Actions workflow: on push → install deps → run pytest → build Docker image','Deploy one project to Railway or Render — make sure the public URL stays alive','Create a deployment comparison table in your portfolio: what you used for each project and why']
+      },
+      {d:'Tue',n:'SQL + data engineering essentials',h:8,proj:false,
+       desc:null,
+       topics:['SQL core: SELECT, WHERE, GROUP BY, HAVING, ORDER BY, LIMIT, DISTINCT','JOINs: INNER, LEFT, RIGHT, FULL OUTER — understand NULLs from outer joins','Subqueries, CTEs (WITH clause), window functions (ROW_NUMBER, RANK, LAG, LEAD, SUM OVER)','PostgreSQL: install locally, psql CLI, pg_admin basics, data types, indexing concepts','Python + SQL: psycopg2, SQLAlchemy ORM basics, pandas read_sql_query','Data pipeline concept: Extract (CSV/API) → Transform (Pandas) → Load (PostgreSQL)'],
+       resources:[
+         {t:'Course',n:'Mode Analytics SQL Tutorial (free)',u:'https://mode.com/sql-tutorial/'},
+         {t:'Course',n:'SQLZoo Interactive SQL Exercises (free)',u:'https://sqlzoo.net/'},
+         {t:'Course',n:'HackerRank SQL Challenges (free)',u:'https://www.hackerrank.com/domains/sql'},
+         {t:'YouTube',n:'Corey Schafer — SQLAlchemy Tutorial',u:'https://www.youtube.com/watch?v=woKYyhLCcnU'}
+       ],
+       tasks:['Complete 30 HackerRank SQL problems (Easy + Medium tier — the exact difficulty of Pakistani interviews)','Build a simple ETL: scrape Pakwheels car listings → Pandas clean → load to PostgreSQL','Write 5 window function queries on the car dataset (ranking, running totals, moving averages)','Expose data via FastAPI with SQLAlchemy: /cars?make=Toyota&max_price=2000000 endpoint','Add SQL to your resume skills section — Pakistani companies love seeing it']
+      },
+      {d:'Wed',n:'Capstone project — build day',h:9,proj:true,
+       desc:'AI-powered job match assistant — Pakistan-specific, full-stack, live deployment',
+       topics:['Scrape or load Rozee.pk/LinkedIn job listings using BeautifulSoup or Selenium','RAG over job descriptions — semantic search to find relevant roles','LLM-powered: resume gap analysis + tailored cover letter generation per job','Similarity score: compare uploaded resume vs job description (cosine similarity)','FastAPI backend + Streamlit frontend with session state, file upload, download output'],
+       resources:[
+         {t:'Docs',n:'BeautifulSoup Web Scraping',u:'https://www.crummy.com/software/BeautifulSoup/bs4/doc/'},
+         {t:'Dataset',n:'Pakistan Jobs Dataset — Kaggle',u:'https://www.kaggle.com/search?q=pakistan+jobs'},
+         {t:'Docs',n:'LangChain Document Loaders + Chains',u:'https://python.langchain.com/docs/introduction/'},
+         {t:'Course',n:'DeepLearning.AI — AI Agents in LangGraph (free)',u:'https://www.deeplearning.ai/short-courses/ai-agents-in-langgraph/'}
+       ],
+       tasks:['Upload your own resume (PDF) → get AI-generated job match scores for 10 real Rozee.pk listings','Generate a tailored cover letter for any job listing in under 30 seconds','Deploy live — this is your showstopper project for interviews at Pakistani companies','Record a 2-minute demo video (use OBS, free) — upload to YouTube (unlisted) and LinkedIn','Add to GitHub with full README, architecture diagram, and 3 screenshots']
+      },
+      {d:'Thu',n:'Resume + LinkedIn + interview domination',h:8,proj:false,
+       desc:null,
+       topics:['Pakistani tech resume: 1 page, ATS-compatible, no photo (for multinationals), metrics-driven bullets','Resume sections: headline, summary (3 lines), skills (technical only), projects, education','LinkedIn optimization: headline with keywords, about section, featured projects, skills endorsements','Cold outreach: DM templates for Pakistani AI engineers and hiring managers','50 most-asked ML/AI interview Q&As at Pakistani companies (Systems Limited, Arbisoft style)','System design for AI: design a chatbot, design a recommendation engine, design a RAG system'],
+       resources:[
+         {t:'Resource',n:'Glassdoor — Systems Limited Reviews + Interview Questions',u:'https://www.glassdoor.com/Reviews/Systems-Limited-Reviews-E298729.htm'},
+         {t:'Resource',n:'Glassdoor — Arbisoft Interview Questions',u:'https://www.glassdoor.com/Interview/Arbisoft-Interview-Questions-E617279.htm'},
+         {t:'Course',n:'InterviewBit — ML Interview Questions',u:'https://www.interviewbit.com/machine-learning-interview-questions/'},
+         {t:'Resource',n:'LeetCode — Top Interview 150 (arrays + strings first)',u:'https://leetcode.com/studyplan/top-interview-150/'}
+       ],
+       tasks:['Write final 1-page resume: every project bullet has a metric (82% F1, 40ms latency, 95% accuracy)','Optimize LinkedIn: keyword-rich headline, 3 featured project posts, 500+ connections target','Send cold DMs to 20 Pakistani AI engineers: "I am a new grad interested in AI — would you share 10 minutes?"','Practice answers to 30 ML interview questions — record voice memos, review tone and clarity','Solve 5 LeetCode Easy/Medium (arrays, hashmaps, strings) — the most common Pakistani coding screen']
+      },
+      {d:'Fri',n:'Mock interview + final polish + apply',h:9,proj:false,
+       desc:null,
+       topics:['Final project polish: fix bugs, improve UI, add error handling, update all READMEs','LinkedIn post strategy: 4 project posts + 1 "what I learned in 4 weeks" post','Mock behavioral interview: STAR method for 5 questions (teamwork, failure, impact, learning, conflict)','Technical mock: explain your RAG project end-to-end in 5 minutes, whiteboard-style','Application strategy for Pakistan + remote — where and how to apply effectively'],
+       resources:[
+         {t:'Resource',n:'Rozee.pk — AI/ML Engineer Listings',u:'https://www.rozee.pk/jobs/search/?q=AI+engineer'},
+         {t:'Resource',n:'LinkedIn Jobs Pakistan Filter',u:'https://www.linkedin.com/jobs/search/?geoId=100170416&keywords=AI+engineer'},
+         {t:'Resource',n:'We Work Remotely — AI/ML Remote Jobs',u:'https://weworkremotely.com/remote-jobs/search?term=machine+learning'},
+         {t:'Resource',n:'Turing.com — Remote AI Jobs for Pakistani Talent',u:'https://www.turing.com/jobs'}
+       ],
+       tasks:['Final audit: all 4 GitHub repos have README, live demo link, tech stack badges, screenshots','Post all 4 projects to LinkedIn with proper hashtags (#ArtificialIntelligence #Python #Pakistan #AIEngineer)','Record a 5-minute mock technical interview — watch it back and identify weak spots','Apply to minimum 10 positions: Systems Limited, Netsol, 10Pearls, Arbisoft, Contour + Rozee.pk filters','Track applications in a spreadsheet: company, role, date, status, follow-up date']
+      }
+    ]
+  }
+];
+
+const STRATEGY = [
+  {icon:'ti-brand-github',title:'GitHub strategy',sub:'Make recruiters want to click every repo',items:['Profile README: animated stats widget, tech stack icons, current focus, contact links','Pin exactly 4 repos — your 4 best projects (no course homework, no forks)','Every repo needs: live demo badge, tech stack, problem solved, results, setup instructions','Commit daily — the green squares are visible to Pakistani recruiters (they check)','Use GitHub Actions CI badge in every README (shows DevOps awareness)','Star and contribute to 2 Pakistani open-source AI projects for visibility']},
+  {icon:'ti-brand-linkedin',title:'LinkedIn strategy',sub:'The #1 channel Pakistani tech recruiters use',items:['Headline: "AI Engineer | Python · LangChain · RAG · PyTorch | Open to work"','About (300 words): who you are, what you built, the impact, and what you want next','Featured section: pin your 3 best project posts with demo videos or screenshots','Grow to 500+ connections in 4 weeks: AI engineers in Lahore, Karachi, Islamabad + company HR pages','Post 1 short technical post per week: what you learned, a project highlight, a lesson','Apply via LinkedIn Easy Apply AND direct company site (both — doubles your visibility)']},
+  {icon:'ti-file-text',title:'Resume strategy',sub:'1 page, ATS-optimized, metric-driven',items:['Format: Google Docs clean template, single column, 10-11pt font, 0.75in margins, PDF export','Headline: "AI Engineer | Python | LLMs | RAG | Machine Learning | PyTorch"','Projects beat experience at this stage — give them 60% of the page','Every bullet: action verb + what you did + measurable result (never just describe features)','Skills section: Python, PyTorch, Scikit-learn, LangChain, FastAPI, SQL, Docker, Git, HuggingFace','ATS pass: match keywords from job description verbatim in your skills + project bullets']},
+  {icon:'ti-send',title:'Application strategy',sub:'Pakistani companies + international remote',items:['Tier 1 — Apply first: Systems Limited, Netsol Technologies, 10Pearls, Arbisoft, Contour','Tier 2 — Apply same week: Afiniti, Axact, TRG, VentureDive, Folio3, Codify','Job portals: Rozee.pk (AI/ML filter), LinkedIn Jobs (Pakistan location), Mustakbil.com','Remote roles: We Work Remotely, Turing.com, Toptal (after 3 months experience)','Referrals: DM 3 employees at each target company before applying — increases success 10x','Follow up: email after 5 business days if no response — one short polite follow-up only']}
+];
+
+const CHECKLIST = [
+  {cat:'Python + Tools',icon:'ti-brand-python',items:['Write Python OOP with confidence (classes, decorators, generators)','Manipulate datasets with Pandas and NumPy without looking up syntax','Build EDA notebooks that tell a data story with visualizations','Set up virtual environments, manage packages, use .env for secrets','Use Git/GitHub daily: branch, commit, push, pull request basics']},
+  {cat:'Machine Learning',icon:'ti-chart-dots',items:['Train and evaluate 5+ ML algorithms with scikit-learn','Tune hyperparameters with GridSearchCV and RandomizedSearchCV','Build sklearn Pipelines for reproducible preprocessing + modeling','Explain bias-variance tradeoff, overfitting, underfitting to an interviewer','Interpret ROC-AUC, F1, RMSE — know when each metric matters and why']},
+  {cat:'Deep Learning + NLP',icon:'ti-brain',items:['Implement a neural net from scratch in NumPy (backprop included)','Build and train CNNs in PyTorch — fine-tune a ResNet model','Fine-tune BERT / XLM-R for text classification on a custom dataset','Explain attention mechanism and transformer architecture in simple terms','Deploy an NLP model on Hugging Face Spaces for free']},
+  {cat:'LLMs + RAG + AI Eng.',icon:'ti-messages',items:['Call OpenAI and Gemini APIs, handle errors, manage token budgets','Apply 5 prompt engineering techniques (CoT, few-shot, ReAct, structured output)','Build a LangChain agent with tools and conversation memory','Build a RAG pipeline: PDF → chunk → embed → ChromaDB → retrieve → generate','Build and deploy a FastAPI backend serving an ML model with auth + tests']},
+  {cat:'Production + MLOps',icon:'ti-server',items:['Write a Dockerfile and docker-compose.yml for a Python AI app','Track ML experiments with MLflow (params, metrics, artifact logging)','Set up GitHub Actions CI/CD that runs tests on push','Deploy at least 2 live projects (Streamlit Cloud, Railway, HF Spaces)','Write proper README with badges, live demo, screenshots, setup instructions']},
+  {cat:'SQL + Data Skills',icon:'ti-database',items:['Write complex SQL: JOINs, GROUP BY, CTEs, window functions, subqueries','Complete 30 HackerRank SQL problems (Easy + Medium)','Connect Python to PostgreSQL with SQLAlchemy, run queries from Pandas','Build a basic ETL pipeline: extract from source → transform → load to DB','Explain database indexing and query optimization conceptually']},
+  {cat:'Portfolio (must have)',icon:'ti-folder-filled',items:['PROJECT 1: Customer churn predictor with Streamlit + SHAP — live and running','PROJECT 2: Multilingual sentiment analyzer (Urdu + English) — HF Spaces','PROJECT 3: RAG document Q&A assistant — PDF upload, Urdu support, live URL','PROJECT 4: AI job match assistant — Pakistan-specific, end-to-end','All 4 repos: professional README, live demo, metrics, tech stack, demo video']},
+  {cat:'Interview readiness',icon:'ti-microphone',items:['Explain any of your 4 projects end-to-end in under 5 minutes','Answer: what is RAG and when would you use it vs fine-tuning?','Solve LeetCode Easy arrays/strings problems in under 20 minutes','Answer behavioral questions using STAR method with Pakistani work context','Completed mock interview — identified and worked on 3 weak areas']}
+];
+
+const IQ = [
+  {q:'What is the difference between RAG and fine-tuning?',a:'RAG is better when knowledge is external, dynamic, or needs citations. Fine-tuning is better when you need consistent tone, format, or behavior at inference time. Use both together for production.'},
+  {q:'Explain overfitting and how you prevent it.',a:'Model memorizes training data instead of generalizing. Fix: more data, dropout, regularization (L1/L2), early stopping, simpler model, cross-validation.'},
+  {q:'What evaluation metric would you use for an imbalanced dataset?',a:'F1 score, precision-recall AUC, or Cohen\'s Kappa. Accuracy is misleading when 95% of samples are one class.'},
+  {q:'How does attention mechanism work?',a:'Every token computes similarity (as dot product of Q and K) with every other token, normalizes with softmax, then uses these weights to aggregate V vectors. This allows long-range dependencies.'},
+  {q:'What is vector embedding and how do you use it in RAG?',a:'A dense numerical representation capturing semantic meaning. In RAG: embed documents into vectors, store in ChromaDB, embed user query, retrieve top-k similar chunks by cosine similarity.'},
+  {q:'Design a recommendation system for Daraz.pk.',a:'Content-based (item features) + collaborative filtering (user behavior) hybrid. Use matrix factorization for CF. Serve with FastAPI. Retrain weekly with fresh interaction data. Address cold start with popularity-based fallback.'}
+];
+
+const COMPANIES = ['Systems Limited','Netsol Technologies','10Pearls','Arbisoft','Contour Software','Afiniti','VentureDive','Folio3','TRG Pakistan','Axact','Rozee.pk (remote)','Turing.com (remote)'];
+
+function badge(t){const m={YouTube:'rb-yt',Course:'rb-course',Docs:'rb-docs',Dataset:'rb-dataset',Resource:'rb-resource',Article:'rb-article'};return`<span class="res-badge ${m[t]||'rb-article'}">${t}</span>`}
+
+function renderDay(day,wi,di){
+  const dayId=`day-${wi}-${di}`;
+  const dayColors={Mon:'mon',Tue:'tue',Wed:'wed',Thu:'thu',Fri:'fri'};
+  const dc=dayColors[day.d]||'mon';
+  return`<div class="day-card${day.proj?' project-day':''}">
+    <div class="day-header" onclick="toggle('${dayId}')">
+      <div class="day-num ${dc}">${day.d}</div>
+      <div class="day-name${day.proj?' project':''}"><i class="ti ${day.proj?'ti-star':'ti-circle-dot'} " aria-hidden="true" style="font-size:13px;margin-right:4px;opacity:.7"></i>${day.n}</div>
+      ${day.proj?`<span class="project-badge"><i class="ti ti-rocket" aria-hidden="true" style="font-size:12px"></i> Project</span>`:''}
+      <span class="time-badge"><i class="ti ti-clock" aria-hidden="true" style="font-size:12px"></i> ${day.h}h</span>
+      <i class="ti ti-chevron-down chevron" id="chev-${dayId}" aria-hidden="true"></i>
+    </div>
+    <div class="day-body" id="${dayId}">
+      ${day.proj&&day.desc?`<div class="proj-desc"><i class="ti ti-bulb" aria-hidden="true" style="font-size:13px;margin-right:5px"></i>${day.desc}</div>`:''}
+      <div class="section">
+        <div class="sec-label" style="color:var(--text-accent)"><i class="ti ti-book" aria-hidden="true"></i>Topics to cover</div>
+        <ul class="item-list topics">${day.topics.map(t=>`<li>${t}</li>`).join('')}</ul>
+      </div>
+      <div class="section">
+        <div class="sec-label" style="color:var(--text-success)"><i class="ti ti-link" aria-hidden="true"></i>Exact resources</div>
+        <div>${day.resources.map(r=>`<div class="res-item">${badge(r.t)}<a href="${r.u}" class="res-link" target="_blank" rel="noopener">${r.n} <i class="ti ti-external-link" aria-hidden="true" style="font-size:11px;opacity:.6"></i></a></div>`).join('')}</div>
+      </div>
+      <div class="section">
+        <div class="sec-label" style="color:var(--text-warning)"><i class="ti ti-checks" aria-hidden="true"></i>Hands-on tasks</div>
+        <ul class="item-list tasks">${day.tasks.map(t=>`<li>${t}</li>`).join('')}</ul>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderWeek(week,wi){
+  return`<div>
+    <div class="week-banner">
+      <div class="wt">Week ${wi+1} of 4</div>
+      <div class="wh">${week.title}</div>
+      <div class="ws">${week.theme}</div>
+    </div>
+    ${week.days.map((d,di)=>renderDay(d,wi,di)).join('')}
+  </div>`;
+}
+
+function renderStrategy(){
+  return`<div>
+    <div class="strategy-grid">
+      ${STRATEGY.map(s=>`<div class="strat-card">
+        <div class="strat-title"><i class="ti ${s.icon}" aria-hidden="true" style="color:var(--text-accent);font-size:18px"></i>${s.title}</div>
+        <div class="strat-sub">${s.sub}</div>
+        ${s.items.map(i=>`<div class="strat-item">${i}</div>`).join('')}
+      </div>`).join('')}
+    </div>
+    <div class="interview-box" style="margin-top:1rem">
+      <div style="font-size:14px;font-weight:500;color:var(--text-primary);margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem"><i class="ti ti-building" aria-hidden="true" style="color:var(--text-accent)"></i>Target companies in Pakistan</div>
+      <div class="company-grid">${COMPANIES.map(c=>`<span class="co-badge">${c}</span>`).join('')}</div>
+    </div>
+    <div class="interview-box">
+      <div style="font-size:14px;font-weight:500;color:var(--text-primary);margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem"><i class="ti ti-help-circle" aria-hidden="true" style="color:var(--text-accent)"></i>Top interview questions to master</div>
+      ${IQ.map(q=>`<div class="iq-item" style="margin-bottom:.625rem"><strong>Q: ${q.q}</strong><br><span style="color:var(--text-secondary)">A: ${q.a}</span></div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function renderChecklist(){
+  return`<div>
+    ${CHECKLIST.map(s=>`<div class="checklist-section">
+      <div class="cl-header"><i class="ti ${s.icon}" aria-hidden="true" style="color:var(--text-accent);font-size:16px"></i>${s.cat}</div>
+      <div class="cl-grid">${s.items.map(i=>`<div class="cl-item">${i}</div>`).join('')}</div>
+    </div>`).join('')}
+    <div class="interview-box" style="background:var(--bg-success);border-color:var(--border-success)">
+      <div style="font-size:14px;font-weight:500;color:var(--text-success);margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem"><i class="ti ti-trophy" aria-hidden="true"></i>The goal: what you can say on day 28</div>
+      <div class="iq-item" style="color:var(--text-secondary)">"I have built 4 deployed AI applications — a customer churn predictor with SHAP explainability, a multilingual Urdu/English sentiment analyzer, a RAG-powered document assistant, and an AI job-matching tool for the Pakistani market. All are live on Hugging Face Spaces, Railway, or Streamlit Cloud. I can explain every design choice, the trade-offs, and the metric results from memory."</div>
+    </div>
+  </div>`;
+}
+
+const tabDefs=[
+  ...W.map((w,i)=>({id:w.id,label:w.label,render:()=>renderWeek(w,i)})),
+  {id:'strategy',label:'Career strategy',render:renderStrategy},
+  {id:'checklist',label:'Final checklist',render:renderChecklist}
+];
+
+const tabNav=document.getElementById('tabs');
+const panels=document.getElementById('panels');
+
+tabDefs.forEach(tab=>{
+  const btn=document.createElement('button');
+  btn.className='tab-btn';
+  btn.textContent=tab.label;
+  btn.id='tab-'+tab.id;
+  btn.onclick=()=>switchTab(tab.id);
+  tabNav.appendChild(btn);
+  const panel=document.createElement('div');
+  panel.className='panel';
+  panel.id='panel-'+tab.id;
+  panel.innerHTML=tab.render();
+  panels.appendChild(panel);
+});
+
+function switchTab(id){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+}
+
+function toggle(id){
+  const body=document.getElementById(id);
+  const chev=document.getElementById('chev-'+id);
+  const open=body.classList.toggle('open');
+  if(chev)chev.classList.toggle('open',open);
+}
+
+switchTab('w1');
+</script>
