@@ -1,1 +1,1 @@
-# AI Bootcamp - Pakistan AI Engineer Journey
+# AI Bootcamp -
