@@ -1,0 +1,11 @@
+model,accuracy,params_m,task,year
+BERT,0.94,110,Classification,2018
+GPT-2,0.89,345,Generation,2019
+LLaMA,0.91,700,Generation,2023
+Mistral,0.96,180,Generation,2023
+RoBERTa,0.93,125,Classification,2019
+GPT-4,0.98,1000,Generation,2023
+Falcon,0.87,400,Generation,2023
+T5,0.92,220,Translation,2020
+XLNet,0.91,340,Classification,2019
+BLOOM,0.85,560,Generation,2022
