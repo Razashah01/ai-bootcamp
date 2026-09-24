@@ -7,8 +7,11 @@ churn predictions with probability scores and SHAP explainability charts — hel
 companies identify at-risk customers before they leave.
 
 ## Tech Stack
-* Tools: Python, Streamlit, JupyterLab, Git
-* Libraries: numpy, pandas, matplotlib, seaborn, xgboost, scikit-learn, shap, joblib, imbalanced-learn
+
+- **Language:** Python  
+- **Web Framework:** Streamlit  
+- **Libraries:** pandas, numpy, scikit-learn, XGBoost, SHAP, imbalanced-learn, joblib, matplotlib, seaborn  
+- **Tools:** JupyterLab, Git
 
 ## Project Structure
 ```
@@ -40,11 +43,13 @@ project1-churn-predictor/
 ## App Preview
 
 ## SHAP Explainability
-The app generates a SHAP waterfall chart for each prediction, explaining why the model
-predicted churn or no churn for a specific customer. Red bars push the prediction toward
-churn, blue bars push it away. The chart shows the top features driving each individual
-prediction — making the model transparent and interpretable.
 
+The app generates a SHAP waterfall chart for each prediction. This chart explains **why** the model predicted churn or no-churn for a specific customer:
+
+- **Red bars** → features pushing the prediction toward churn  
+- **Blue bars** → features pushing the prediction away from churn  
+
+This makes the model transparent and easier to trust.
 <img src="assets/shap.png" width="700" alt="SHAP Chart">
 
 
