@@ -33,15 +33,19 @@ project1-churn-predictor/
 
 
 ## Confusion Matrix
-![Confusion Matrix](<img width="564" height="434" alt="confusion_matrix" src="https://github.com/user-attachments/assets/c84e6039-ac10-448c-b7d9-846abdc2ea9b" />)
+
+<img src="assets/confusion_matrix.png" width="564" height="434" alt="Confusion Matrix">
+
 ## App Preview
+
 ## SHAP Explainability
-The app generates a SHAP waterfall chart for each prediction, explaining why the model 
-predicted churn or no churn for a specific customer. Red bars push the prediction toward 
-churn, blue bars push it away. The chart shows the top features driving each individual 
+The app generates a SHAP waterfall chart for each prediction, explaining why the model
+predicted churn or no churn for a specific customer. Red bars push the prediction toward
+churn, blue bars push it away. The chart shows the top features driving each individual
 prediction — making the model transparent and interpretable.
 
-![SHAP Chart](<img width="1460" height="847" alt="shap" src="https://github.com/user-attachments/assets/622127b5-af78-4474-acaf-9121566b3aca" />)
+<img src="assets/shap.png" width="700" alt="SHAP Chart">
+
 
 ## How to Run
 
