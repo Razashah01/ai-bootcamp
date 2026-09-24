@@ -31,6 +31,20 @@ project1-churn-predictor/
 | Weighted Recall | 0.79 |
 | ROC AUC | 0.84 |
 
+
+## Confusion Matrix
+![Confusion Matrix](<img width="564" height="434" alt="confusion_matrix" src="https://github.com/user-attachments/assets/c84e6039-ac10-448c-b7d9-846abdc2ea9b" />
+)
+## App Preview
+## SHAP Explainability
+The app generates a SHAP waterfall chart for each prediction, explaining why the model 
+predicted churn or no churn for a specific customer. Red bars push the prediction toward 
+churn, blue bars push it away. The chart shows the top features driving each individual 
+prediction — making the model transparent and interpretable.
+
+![SHAP Chart](<img width="1460" height="847" alt="shap" src="https://github.com/user-attachments/assets/622127b5-af78-4474-acaf-9121566b3aca" />
+)
+
 ## How to Run
 
 1. Clone the repository
@@ -61,6 +75,6 @@ streamlit run app/app.py
 
 ## Limitations
 - The uploaded CSV must have the same columns as the Telco Customer Churn dataset used for training
-- The model is trained specifically on Telco customer data — predictions on data from a different domain or company may be unreliable
+- The model is trained specifically on Telco customer data — predictions on data from a different domain or company may be     unreliable
 - Missing or renamed columns will cause the app to fail or return incorrect predictions
 - For production use, retraining on domain-specific data is recommended
