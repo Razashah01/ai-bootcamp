@@ -15,6 +15,7 @@ companies identify at-risk customers before they leave.
 project1-churn-predictor/
 ├── app/              Streamlit app
 ├── models/           saved model file
+├── assets/           saved Images
 ├── notebooks/        main Jupyter notebook
 ├── src/              preprocessing module
 ├── .gitignore        files excluded from git
@@ -79,4 +80,5 @@ streamlit run app/app.py
 - The uploaded CSV must have the same columns as the Telco Customer Churn dataset used for training
 - The model is trained specifically on Telco customer data — predictions on data from a different domain or company may be     unreliable
 - Missing or renamed columns will cause the app to fail or return incorrect predictions
-- For production use, retraining on domain-specific data is recommended
+- For production use, retraining on domain-specific data is recommended -->
+
