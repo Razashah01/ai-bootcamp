@@ -18,7 +18,9 @@ project1-churn-predictor/
 ├── notebooks/     main Jupyter notebook
 ├── src/           preprocessing module
 ├── models/        saved model file
-└── app/           Streamlit app
+├── app/           Streamlit app
+├── requirements.txt    project dependencies
+└── .gitignore     files excluded from git
 ```
 ## Model Performance
 
